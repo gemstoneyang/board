@@ -1,13 +1,14 @@
 package hello.board.controller;
 
+import hello.board.domain.Post;
 import hello.board.domain.PostRepository;
+import hello.board.form.AddForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
@@ -25,13 +26,20 @@ public class PostController {
 
     @GetMapping("/view/{postId}")
     public String postView(@PathVariable Long postId, Model model) {
-        log.info("postview");
         model.addAttribute("post", postRepository.findById(postId));
         return "post";
     }
 
-//    @GetMapping("/add")
-//    public String addForm() {
-//        return "addForm";
-//    }
+    @GetMapping("/add")
+    public String addForm(Model model) {
+        model.addAttribute("form", new AddForm());
+        return "addForm";
+    }
+
+    @PostMapping("/add")
+    public String addPost(@ModelAttribute AddForm form, RedirectAttributes redirectAttributes) {
+        Post savedPost = postRepository.save(new Post(form.getSubject(), form.getContents(), form.getNickname(), form.getPassword()));
+        redirectAttributes.addAttribute("postId", savedPost.getId());
+        return "redirect:/mainpage/view/{postId}";
+    }
 }
