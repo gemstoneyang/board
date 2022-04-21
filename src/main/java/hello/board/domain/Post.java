@@ -30,4 +30,10 @@ public class Post {
         this.uploadTime = LocalDateTime.now();
         this.editTime = LocalDateTime.now();
     }
+
+    public Post(String subject, String contents, String password) {
+        this.subject = subject;
+        this.contents = contents;
+        this.password = password;
+    }
 }

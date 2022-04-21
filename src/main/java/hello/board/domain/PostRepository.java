@@ -37,7 +37,7 @@ public class PostRepository {
         Post post = store.get(id);
 
         post.setSubject(updateParam.getSubject());
-        post.setContents(updateParam.getSubject());
+        post.setContents(updateParam.getContents());
         post.setPassword(updateParam.getPassword());
         post.setEditTime(LocalDateTime.now());
 

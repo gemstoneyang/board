@@ -3,6 +3,7 @@ package hello.board.controller;
 import hello.board.domain.Post;
 import hello.board.domain.PostRepository;
 import hello.board.form.AddForm;
+import hello.board.form.EditForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ public class PostController {
 
     private final PostRepository postRepository;
 
+    //조회
     @GetMapping("/view")
     public String mainView(Model model) {
         model.addAttribute("posts", postRepository.findAll());
@@ -30,6 +32,7 @@ public class PostController {
         return "post";
     }
 
+    //등록
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("form", new AddForm());
@@ -40,6 +43,21 @@ public class PostController {
     public String addPost(@ModelAttribute AddForm form, RedirectAttributes redirectAttributes) {
         Post savedPost = postRepository.save(new Post(form.getSubject(), form.getContents(), form.getNickname(), form.getPassword()));
         redirectAttributes.addAttribute("postId", savedPost.getId());
+        return "redirect:/mainpage/view/{postId}";
+    }
+
+    //수정
+    @GetMapping("/edit/{postId}")
+    public String editView(@PathVariable Long postId, Model model) {
+        Post findPost = postRepository.findById(postId);
+        model.addAttribute("form", findPost);
+        return "editForm";
+    }
+
+    @PostMapping("/edit/{postId}")
+    public String editPost(@PathVariable Long postId, @ModelAttribute EditForm form, RedirectAttributes redirectAttributes) {
+        Post editPost = postRepository.update(postId, new Post(form.getSubject(), form.getContents(), form.getPassword()));
+        redirectAttributes.addAttribute("postId", editPost.getId());
         return "redirect:/mainpage/view/{postId}";
     }
 }
