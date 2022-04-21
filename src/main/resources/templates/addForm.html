@@ -19,7 +19,7 @@
 <div class="container">
 
     <div class="py-5 text-center">
-        <h2>게시물 등록</h2>
+        <h2 th:text="#{page.addPost}">게시물 작성</h2>
     </div>
 
     <form action="post.html" th:action th:object="${form}" method="post">
@@ -29,15 +29,15 @@
         </div>
 
         <div>
-            <label for="itemName">제목</label>
-            <input type="text" id="itemName" th:field="*{subject}"
+            <label for="subject" th:text="#{label.post.subject}">제목</label>
+            <input type="text" id="subject" th:field="*{subject}"
                    th:errorclass="field-error" class="form-control" placeholder="제목을 입력하세요">
             <div class="field-error" th:errors="*{subject}">
                 상품명 오류
             </div>
         </div>
         <div>
-            <label for="nickname">닉네임</label>
+            <label for="nickname" th:text="#{label.post.nickname}">닉네임</label>
             <input type="text" id="nickname" th:field="*{nickname}"
                    th:errorclass="field-error" class="form-control" placeholder="닉네임을 입력하세요">
             <div class="field-error" th:errors="*{nickname}">
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div>
-            <label for="password">비밀번호</label>
+            <label for="password" th:text="#{label.post.password}">비밀번호</label>
             <input type="text" id="password" th:field="*{password}"
                    th:errorclass="field-error" class="form-control" placeholder="비밀번호를 입력하세요">
             <div class="field-error" th:errors="*{password}">
@@ -54,7 +54,7 @@
         </div>
 
         <div>
-            <label for="contents">내용</label>
+            <label for="contents" th:text="#{label.post.contents}">내용</label>
             <input type="text" id="contents" th:field="*{contents}"
                    th:errorclass="field-error" class="form-control" placeholder="내용을 입력하세요">
             <div class="field-error" th:errors="*{contents}">
@@ -67,13 +67,13 @@
 
         <div class="row">
             <div class="col">
-                <button class="w-100 btn btn-primary btn-lg" type="submit">게시물 등록</button>
+                <button class="w-100 btn btn-primary btn-lg" type="submit" th:text="#{button.save}">게시물 등록</button>
             </div>
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
                         onclick="location.href='main-page.html'"
                         th:onclick="|location.href='@{/mainpage/view}'|"
-                        type="button">취소</button>
+                        type="button" th:text="#{button.cancel}">취소</button>
             </div>
         </div>
 
