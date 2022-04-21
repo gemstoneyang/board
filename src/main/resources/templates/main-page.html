@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <link th:href="@{../css/bootstrap.min.css}"
+    <link th:href="@{/css/bootstrap.min.css}"
           href="../css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -35,7 +35,7 @@
             <tbody>
             <tr th:each="post : ${posts}">
                 <td th:text="${post.id}">게시물 id</a></td>
-                <td><a href="item.html" th:href="@{|/mainpage/${post.id}|}" th:text="${post.subject}">subject</a></td>
+                <td><a href="post.html" th:href="@{|/mainpage/view/${post.id}|}" th:text="${post.subject}">subject</a></td>
                 <td th:text="${post.nickname}">user1</td>
                 <td th:text="${{post.uploadTime}}">10:00</td>
             </tr>
