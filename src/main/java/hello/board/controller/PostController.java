@@ -56,8 +56,15 @@ public class PostController {
 
     @PostMapping("/edit/{postId}")
     public String editPost(@PathVariable Long postId, @ModelAttribute EditForm form, RedirectAttributes redirectAttributes) {
-        Post editPost = postRepository.update(postId, new Post(form.getSubject(), form.getContents(), form.getPassword()));
-        redirectAttributes.addAttribute("postId", editPost.getId());
+        postRepository.update(postId, new Post(form.getSubject(), form.getContents(), form.getPassword()));
+        redirectAttributes.addAttribute("postId", postId);
         return "redirect:/mainpage/view/{postId}";
+    }
+
+    //삭제
+    @GetMapping("/delete/{postId}")
+    public String deletePost(@PathVariable Long postId) {
+        postRepository.delete(postId);
+        return "redirect:/mainpage/view";
     }
 }
